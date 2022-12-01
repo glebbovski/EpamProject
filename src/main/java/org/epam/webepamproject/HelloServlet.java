@@ -21,16 +21,18 @@ public class HelloServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         // Hello
-//        PrintWriter out = response.getWriter();
-//
-//        out.println("<html><body>");
-//        out.println("<h1>" + message + "</h1>");
-//        out.println("</body></html>");
+        PrintWriter out = response.getWriter();
 
-        String path = "/index.html";
+        out.println("<html><body>");
+        out.println("<h1>" + message + "</h1>");
+        out.println("</body></html>");
+
+        String path = "/tmp.html";
         ServletContext servletContext = getServletContext();
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
+
+
     }
 
 
