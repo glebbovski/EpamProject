@@ -11,36 +11,37 @@ import java.util.Properties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import javax.sql.DataSource;
+
 public class HikariCP {
 
-    private static HikariDataSource dataSource = null;
+    private final static HikariDataSource dataSource;
+    private final static HikariConfig config = new HikariConfig();
 
     static {
-        try (FileInputStream f = new FileInputStream("src/main/resources/db.properties")) {
-
+        try(FileInputStream f = new FileInputStream("D:\\Epam\\Project\\EpamProject\\src\\main\\resources\\db.properties")) {
             Properties properties = new Properties();
             properties.load(f);
 
-            HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(properties.getProperty("db.url"));
-            config.setUsername(properties.getProperty("db.username"));
-            config.setPassword(properties.getProperty("db.password"));
-            config.addDataSourceProperty("minimumIdle", properties.getProperty("db.minimumIdle"));
-            config.addDataSourceProperty("maximumPoolSize", properties.getProperty("db.maximumPoolSize"));
-
+            config.setJdbcUrl(properties.getProperty("jdbcUrl"));
+            config.setUsername(properties.getProperty("user"));
+            config.setPassword(properties.getProperty("password"));
+            config.setDriverClassName(properties.getProperty("driverClassName"));
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
             dataSource = new HikariDataSource(config);
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static HikariDataSource getDataSource() {
-        if (dataSource != null) {
-            return dataSource;
-        } else {
-            throw new RuntimeException("Datasource is null");
-        }
+    private HikariCP() {
+    }
+
+    public static Connection getConnection() throws SQLException{
+        return dataSource.getConnection();
     }
 
     public static void close(Connection con) {

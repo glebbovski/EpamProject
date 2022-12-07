@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
     private AtomicReference<UserDAO> userDAO;
 
     public void init() throws ServletException {
-        this.userDAO = new AtomicReference<UserDAO>();
+
     }
 
     @Override
@@ -28,15 +28,21 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //resp.setContentType("text/html;charset=UTF-8");
+        req.setCharacterEncoding("UTF8");
+        userDAO = new AtomicReference<UserDAO>(new UserDAO());
 
-//        String username = req.getParameter("username");
-//        String password = req.getParameter("password");
-//
-//        resp.sendRedirect("");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
-        req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
-//        PrintWriter writer = resp.getWriter();
-//        writer.println("asdadasdas");
+        if(userDAO.get().isUserExists(username)) {
+            req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
+        }
+        //System.out.println(username);
+
+        //userDAO.get().isUserExists("Мария")
+        //req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
+
     }
 
 }
