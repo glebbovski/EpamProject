@@ -1,6 +1,7 @@
 package org.epam.webepamproject.servlets.servlet;
 
-import org.epam.webepamproject.dao.classes.UserDAO;
+
+import org.epam.webepamproject.dao.jdbc.mysql.UserDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,18 +23,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter writer = resp.getWriter();
-        writer.println("asdasdasd");
-
+        req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+//        String username = req.getParameter("username");
+//        String password = req.getParameter("password");
+//
+//        resp.sendRedirect("");
 
-        resp.sendRedirect("/");
+        req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
+//        PrintWriter writer = resp.getWriter();
+//        writer.println("asdadasdas");
     }
 
 }

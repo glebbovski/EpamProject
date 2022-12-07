@@ -13,7 +13,15 @@
         <element id="directory" name="classes">
           <element id="module-output" name="EpamProject" />
         </element>
-        <element id="directory" name="lib" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:4.0.3" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.0-alpha1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.18.0" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.18.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.12.0" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.11" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:2.6.0" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/WebEpamProject-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
