@@ -23,26 +23,25 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/view/pages/loginPage.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //resp.setContentType("text/html;charset=UTF-8");
         req.setCharacterEncoding("UTF8");
         userDAO = new AtomicReference<UserDAO>(new UserDAO());
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if(userDAO.get().isUserExists(username)) {
-            req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
+        // TODO here
+        if(userDAO.get().isUserExists(username) && userDAO.get().isCredentialsValid(username, password)) {
+            req.getRequestDispatcher("/WEB-INF/view/pages/adminPage.jsp").forward(req, resp);
+        } else {
+//            PrintWriter writer = resp.getWriter();
+//            writer.println("Not valid");
+            req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").forward(req, resp);
         }
-        //System.out.println(username);
-
-        //userDAO.get().isUserExists("Мария")
-        //req.getRequestDispatcher("/WEB-INF/view/tmp.jsp").forward(req, resp);
-
     }
 
 }

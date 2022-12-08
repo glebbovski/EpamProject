@@ -11,8 +11,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-//    private final HikariDataSource hikariDataSource;
-    private Connection connection = null;
+    private Connection connection;
     private PreparedStatement ps = null;
 
     private static final String FIND_USER_INFO_QUERY = "SELECT * FROM user WHERE username=? AND password=?";
@@ -42,7 +41,7 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            HikariCP.close(connection);
+//            HikariCP.close(connection);
             HikariCP.close(ps);
         }
 
@@ -61,8 +60,12 @@ public class UserDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+//            HikariCP.close(connection);
+            HikariCP.close(ps);
         }
-
         return exists == 1;
     }
+
+
 }

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>MAWKA ROMANENKA SOSO4KA</h2>
+    <h2>ADMIN PAGE</h2>
 </body>
 </html>
