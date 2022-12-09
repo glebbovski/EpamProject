@@ -19,11 +19,16 @@
     <h2>Login</h2>
     <form id="login-form" method="post" action="${pageContext.request.contextPath}/">
         <p>
-            <input type="text" required placeholder="Username" name="username"><br>
+            <input type="text" required placeholder="Username" name="username">
         </p>
         <p>
-            <input type="password" required placeholder="Password" name="password"><br><br>
+            <input type="password" required placeholder="Password" name="password">
         </p>
+
+        <div class='container'>
+            <h6 style='color: red;'><%= request.getAttribute("wrongData")%></h6>
+        </div>
+
         <p>
             <input class="button" type="submit" value="Login" id="login">
         </p>
