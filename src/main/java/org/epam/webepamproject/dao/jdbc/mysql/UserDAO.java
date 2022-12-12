@@ -1,9 +1,7 @@
 package org.epam.webepamproject.dao.jdbc.mysql;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.epam.webepamproject.connection.HikariCP;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +9,9 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.epam.webepamproject.dao.interfaces.IUserDAO;
 
-public class UserDAO {
+public class UserDAO implements IUserDAO {
 
     private static final Logger logger = LogManager.getLogger(UserDAO.class);
 
@@ -30,11 +29,10 @@ public class UserDAO {
             this.connection = HikariCP.getConnection();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            //throw new RuntimeException(e);
         }
     }
 
-    // TODO check, no need mb
+    @Override
     public boolean isCredentialsValid(String username, String password) {
         try {
             ps = connection.prepareStatement(FIND_USER_INFO_QUERY);
@@ -46,13 +44,13 @@ public class UserDAO {
 
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            // throw new RuntimeException(e);
         } finally {
             HikariCP.close(ps);
         }
         return false; // because of logger
     }
 
+    @Override
     public boolean isUserExists(String username) {
         int exists = 0; // 0 - user is not in db; 1 - user is in db
         try {
@@ -65,13 +63,13 @@ public class UserDAO {
 
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            // throw new RuntimeException(e);
         } finally {
             HikariCP.close(ps);
         }
         return exists == 1;
     }
 
+    @Override
     public boolean isUserAdmin(String username) {
         int adminValue = 0;
         try {
@@ -83,7 +81,6 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            //throw new RuntimeException(e);
         }
         return adminValue == 1;
     }
