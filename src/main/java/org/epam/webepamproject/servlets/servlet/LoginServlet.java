@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.epam.webepamproject.dao.jdbc.mysql.UserDAO;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +42,8 @@ public class LoginServlet extends HttpServlet {
             userDAO = new AtomicReference<UserDAO>(new UserDAO());
         }
 
+        ServletContext servletContext = getServletContext();
+        servletContext.setAttribute("username", req.getParameter("username"));
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -51,14 +54,11 @@ public class LoginServlet extends HttpServlet {
 
                 if(userDAO.get().isUserAdmin(username)) {
 
-                    logger.info("Successful connection to adminPage");
-                    req.getRequestDispatcher("/WEB-INF/view/pages/adminPage.jsp").forward(req, resp);
-
+                    resp.sendRedirect(req.getContextPath() + "/adminHomePage");
 
                 } else {
 
-                    logger.info("Successful connection to userPage");
-                    req.getRequestDispatcher("/WEB-INF/view/pages/userPage.jsp").forward(req, resp);
+                    resp.sendRedirect(req.getContextPath() + "/homePage");
 
                 }
 
