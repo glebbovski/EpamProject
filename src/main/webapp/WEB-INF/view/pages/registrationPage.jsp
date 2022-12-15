@@ -19,8 +19,8 @@
   <h2>Registration</h2>
   <form id="registration-form" method="post" action="${pageContext.request.contextPath}/registration">
     <p>
-    <label for="username"><b>Username</b></label><br>
-    <input type="text" required placeholder="Username" name="username" id="username">
+      <label for="username"><b>Username</b></label><br>
+      <input type="text" required placeholder="Username" name="username" id="username" value=${username}>
     </p>
     <p>
     <label for="psw"><b>Password</b></label><br>
@@ -30,6 +30,9 @@
     <label for="psw-repeat"><b>Repeat Password</b></label><br>
     <input type="password" required placeholder="Repeat Password" name="psw-repeat" id="psw-repeat">
     </p>
+    <div class='container'>
+      <h6 style='color: red;'><%= request.getAttribute("wrongRegistrationData")%></h6>
+    </div>
     <p>
       <input class="button" type="submit" value="Registration" id="login">
     </p>

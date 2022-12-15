@@ -26,7 +26,7 @@
         </p>
 
         <div class='container'>
-            <h6 style='color: red;'><%= request.getAttribute("wrongData")%></h6>
+            <h6 style='color: red;'><%= request.getAttribute("wrongLoginData")%></h6>
         </div>
 
         <p>

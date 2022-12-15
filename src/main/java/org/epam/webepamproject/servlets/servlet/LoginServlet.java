@@ -20,8 +20,8 @@ public class LoginServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(LoginServlet.class);
     private AtomicReference<UserDAO> userDAO;
-    private static final String WRONG_DATA_ATTRIBUTE = "wrongData";
-    private static final String USER_IS_NOT_EXISTS = "User with this username is not exists";
+    private static final String WRONG_LOGIN_DATA_ATTRIBUTE = "wrongLoginData";
+    private static final String USER_DOES_NOT_EXIST = "User with this username does not exist";
     private static final String WRONG_CREDENTIALS = "Incorrect username or password";
 
     public void init() throws ServletException {
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(WRONG_DATA_ATTRIBUTE, "");
+        req.setAttribute(WRONG_LOGIN_DATA_ATTRIBUTE, "");
         req.getRequestDispatcher("/WEB-INF/view/pages/loginPage.jsp").forward(req,resp);
     }
 
@@ -64,16 +64,16 @@ public class LoginServlet extends HttpServlet {
 
             } else {
 
-                req.setAttribute(WRONG_DATA_ATTRIBUTE, WRONG_CREDENTIALS);
+                req.setAttribute(WRONG_LOGIN_DATA_ATTRIBUTE, WRONG_CREDENTIALS);
                 req.getRequestDispatcher("/WEB-INF/view/pages/loginPage.jsp").include(req, resp);
-                logger.warn(req.getAttribute(WRONG_DATA_ATTRIBUTE));
+                logger.warn(req.getAttribute(WRONG_LOGIN_DATA_ATTRIBUTE));
             }
 
         } else {
 
-            req.setAttribute(WRONG_DATA_ATTRIBUTE, USER_IS_NOT_EXISTS);
+            req.setAttribute(WRONG_LOGIN_DATA_ATTRIBUTE, USER_DOES_NOT_EXIST);
             req.getRequestDispatcher("/WEB-INF/view/pages/loginPage.jsp").include(req, resp);
-            logger.warn(req.getAttribute(WRONG_DATA_ATTRIBUTE));
+            logger.warn(req.getAttribute(WRONG_LOGIN_DATA_ATTRIBUTE));
 
         }
     }

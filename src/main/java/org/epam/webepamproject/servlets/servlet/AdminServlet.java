@@ -17,7 +17,6 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
-        System.out.println(req.getAttribute("username"));
         req.getRequestDispatcher("/WEB-INF/view/pages/adminPage.jsp").forward(req, resp);
         logger.info("Successful connection to adminHomePage");
 
