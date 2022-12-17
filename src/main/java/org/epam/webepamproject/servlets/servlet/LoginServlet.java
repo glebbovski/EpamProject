@@ -47,7 +47,6 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        // TODO here
         if(userDAO.get().isUserExists(username)) {
 
             if (userDAO.get().isCredentialsValid(username, password)) {

@@ -14,14 +14,23 @@
 </head>
 
 <body>
-
+<meta charset="UTF-8">
 <div id="registration-form-wrap">
   <h2>Registration</h2>
   <form id="registration-form" method="post" action="${pageContext.request.contextPath}/registration">
+
+    <% if (request.getParameter("username") != null) { %>
     <p>
       <label for="username"><b>Username</b></label><br>
-      <input type="text" required placeholder="Username" name="username" id="username" value=${username}>
+      <input type="text" required placeholder="Username" name="username" id="username" value=<%= request.getParameter("username")%>>
     </p>
+    <% } else { %>
+    <p>
+      <label for="username_second"><b>Username</b></label><br>
+      <input type="text" required placeholder="Username" name="username" id="username_second">
+    </p>
+    <% } %>
+
     <p>
     <label for="psw"><b>Password</b></label><br>
     <input type="password" required placeholder="Password" name="password" id="psw">

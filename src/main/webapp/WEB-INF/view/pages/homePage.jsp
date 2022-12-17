@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <style><%@include file="../css/userPageStyle.css"%></style>
+    <style><%@include file="../css/homePageStyle.css"%></style>
 </head>
 
 <svg style="display:none;">

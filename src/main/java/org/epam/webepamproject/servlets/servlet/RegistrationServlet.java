@@ -24,15 +24,13 @@ public class RegistrationServlet extends HttpServlet {
     private static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
 
     public void init() throws ServletException {
-
     }
+
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ServletContext servletContext = getServletContext();
-        servletContext.setAttribute("username", "");
-
+        req.setCharacterEncoding("UTF8");
         req.setAttribute(WRONG_REGISTRATION_DATA_ATTRIBUTE, "");
         req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").forward(req,resp);
     }
@@ -45,8 +43,6 @@ public class RegistrationServlet extends HttpServlet {
             userDAO = new AtomicReference<UserDAO>(new UserDAO());
         }
 
-        ServletContext servletContext = getServletContext();
-        servletContext.setAttribute("username", req.getParameter("username"));
         String username = req.getParameter("username");
 
         if (!userDAO.get().isUserExists(username)) {
@@ -54,18 +50,20 @@ public class RegistrationServlet extends HttpServlet {
             String pswrepeat = req.getParameter("psw-repeat");
             if (password.equals(pswrepeat)) {
 
-                //TODO continue registration and encoding for utf-8
+                ServletContext servletContext = getServletContext();
+                servletContext.setAttribute("username", username);
+                userDAO.get().create(username, password);
+                resp.sendRedirect(req.getContextPath() + "/homePage");
 
             } else {
-                req.setAttribute("username", username);
                 req.setAttribute(WRONG_REGISTRATION_DATA_ATTRIBUTE, PASSWORDS_DO_NOT_MATCH);
-                req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").include(req, resp);
+                req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").forward(req, resp);
                 logger.warn(req.getAttribute(WRONG_REGISTRATION_DATA_ATTRIBUTE));
             }
 
         } else {
             req.setAttribute(WRONG_REGISTRATION_DATA_ATTRIBUTE, USER_EXISTS);
-            req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").include(req, resp);
+            req.getRequestDispatcher("/WEB-INF/view/pages/registrationPage.jsp").forward(req, resp);
             logger.warn(req.getAttribute(WRONG_REGISTRATION_DATA_ATTRIBUTE));
         }
 
